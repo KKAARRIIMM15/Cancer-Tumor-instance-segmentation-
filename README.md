@@ -1,5 +1,3 @@
-# Cancer-Tumor-instance-segmentation-
-how to train instance segmentation model to segment Brain Cancer Tumor
 
 # Project Describtion
 this project shows how to use Computer Vision in medical application (You Only Look Once) algorithm version 8 introduce a Segmentation layer which is added after detecting the the bounding box to achieve ability for generating segmentation masks precised on the on the object being deteced
@@ -15,6 +13,7 @@ this project shows how to use Computer Vision in medical application (You Only L
 # final output after training (Prediction Phase)
 ![Image](https://github.com/user-attachments/assets/ac780dd6-f1c7-44d8-a236-87dde0e36ea9)
 ![Image](https://github.com/user-attachments/assets/893b63f0-341e-469a-87cc-0059186d8a7b)
+![Image](https://github.com/user-attachments/assets/2eab9407-fc1c-4bbe-b404-0128636824e9)
 
 
 
