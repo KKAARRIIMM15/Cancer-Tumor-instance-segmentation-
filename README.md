@@ -3,10 +3,10 @@
 this project shows how to use Computer Vision in medical application (You Only Look Once) algorithm version 8 introduce a Segmentation layer which is added after detecting the the bounding box to achieve ability for generating segmentation masks precised on the on the object being deteced
 
 # Project Idea
-how to train yolo algorithm on a specific data set from scratch to perform segmentation tasks
+How to train yolo algorithm on a specific data set from scratch to perform segmentation tasks.
 
 
-code details in the colab notebook above "how to train Segmentation model on cancer tumor dataset.ipynb"
+Code details in the colab notebook above "how to train Segmentation model on cancer tumor dataset.ipynb"
 
 
 # Dataset
