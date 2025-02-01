@@ -4,6 +4,8 @@ this project shows how to use Computer Vision in medical application (You Only L
 
 # Project Idea
 how to train yolo algorithm on a specific data set from scratch to perform segmentation tasks
+
+
 code details in the colab notebook above "how to train Segmentation model on cancer tumor dataset.ipynb"
 
 
