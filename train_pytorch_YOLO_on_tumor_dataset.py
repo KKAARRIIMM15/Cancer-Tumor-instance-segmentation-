@@ -99,9 +99,7 @@ def extract_all_segments( new_result ):
     i = i + 1
 
   return image
-
-
-
+    
 def segmentation_mask( outputs ):
 
   pred_classes = outputs["instances"].pred_classes.to("cpu").numpy()
