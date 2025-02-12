@@ -158,7 +158,6 @@ model = YOLO("yolov8n-seg.yaml")
 results = model.train(model="yolov8n-seg.yaml", data="drive//MyDrive//Tumor//config2.yaml", imgsz=1024 ,
                       optimizer="SGD" , epochs=40 ,batch=5, lr0=0.008 , lrf=0.1)
 
-/content/runs/segment/train/weights/last.pt
 
 """### **Prediction Phase**"""
 
