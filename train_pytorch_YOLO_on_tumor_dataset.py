@@ -102,6 +102,62 @@ def extract_all_segments( new_result ):
 
 
 
+def segmentation_mask( outputs ):
+
+  pred_classes = outputs["instances"].pred_classes.to("cpu").numpy()
+  pred_boxes = outputs["instances"].pred_boxes.to("cpu")
+  pred_masks = outputs["instances"].pred_masks.to("cpu").numpy()
+  scores = outputs["instances"].scores.to("cpu").numpy()
+
+  all_Segments=[]
+
+  height, width = im.shape[:2]
+  colored_mask = np.zeros((height, width, 3), dtype=np.uint8)
+
+  for i, mask in enumerate(pred_masks):
+      class_id = pred_classes[i].item()
+      score = scores[i]
+      box = pred_boxes[i].tensor.numpy()[0]
+
+
+      sgmnt = Segment( mask , score , class_id , box)
+      all_Segments.append( sgmnt )
+      overlapping_segments = get_overlapping_segments(all_Segments, threshold=30)
+      best_mask, best_score, cls_label, best_box = get_highest_score_segment(overlapping_segments)
+
+      label = class_names[class_id]
+      score = "{:.2f}".format(score * 100)
+
+      if best_mask is not None and best_mask.any():
+        mask = best_mask;    score = best_score;   class_id= cls_label;      box = best_box
+        label=""
+
+          empty_image = np.zeros((height, width, 3), dtype=np.uint8)
+          empty_image[mask > 0] = [255, 255, 255]
+          edges = cv2.Canny(empty_image, 50, 100)
+          contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+          cv2.drawContours(im, contours, -1, colors[class_id], 2)
+
+          continue
+
+      cv2.putText(im, label, (int(box[0] + 30), int(box[1] + 60)),
+                  cv2.FONT_HERSHEY_SIMPLEX, 1.4, colors[class_id], 3, cv2.LINE_AA)
+
+
+      colored_mask[mask > 0] = colors[class_id]
+      alpha = 0.7
+      beta = 0.3
+      gamma = 0
+      im[mask == 1] = cv2.addWeighted(im[mask != 0], alpha, colored_mask[mask != 0], beta, gamma)
+
+      empty_image = np.zeros((height, width, 3), dtype=np.uint8)
+      empty_image[mask > 0] = [255, 255, 255]
+      edges = cv2.Canny(empty_image, 50, 100)
+      contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+      cv2.drawContours(im, contours, -1, colors[class_id], 2)
+
+  return im
+
 class Segment:
     def __init__(self, msk, scr, lbl , box):
         self.MASK = msk;    self.SCORE = scr;   self.label = lbl;  self.BOX = box
