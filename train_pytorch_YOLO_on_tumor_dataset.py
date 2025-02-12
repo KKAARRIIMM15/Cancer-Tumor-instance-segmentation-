@@ -101,6 +101,52 @@ def extract_all_segments( new_result ):
 
 
 
+class Segment:
+    def __init__(self, msk, scr, lbl , box):
+        self.MASK = msk;    self.SCORE = scr;   self.label = lbl;  self.BOX = box
+
+
+def calculate_overlap(mask1, mask2):
+    # Calculate the intersection and union between two masks
+    intersection = np.logical_and(mask1, mask2)
+    union = np.logical_or(mask1, mask2)
+
+    # Calculate percentage of overlap as IoU
+    if np.sum(union) == 0:
+        return 0
+    return (np.sum(intersection) / np.sum(union)) * 100
+
+
+def get_overlapping_segments(segments, threshold=20):
+    overlapping_segments = []
+
+    # Check for overlap between all pairs of segments
+    for i in range(len(segments)):
+        for j in range(i + 1, len(segments)):
+            overlap_percentage = calculate_overlap(segments[i].MASK, segments[j].MASK)
+            if overlap_percentage > threshold:
+                # Add segments that have sufficient overlap to the result list
+                overlapping_segments.append(segments[i])
+                overlapping_segments.append(segments[j])
+
+    # Remove duplicates from the list of overlapping segments
+    overlapping_segments = list(set(overlapping_segments))
+
+    return overlapping_segments
+
+
+def get_highest_score_segment(segments):
+    # Ensure there are segments to compare
+    if not segments:
+        return None, None, None, None
+
+    # Find the segment with the highest score
+    best_segment = max(segments, key=lambda seg: seg.SCORE)
+
+    return best_segment.MASK, best_segment.SCORE, best_segment.label, best_segment.BOX
+
+
+
 """## **Start Training**
 
 **this path ---> "drive//MyDrive//Tumor//config2.yaml"   contain the training data for each image and its label**
