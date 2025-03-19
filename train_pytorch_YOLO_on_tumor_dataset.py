@@ -875,7 +875,6 @@ def get_highest_score_segment(segments):
 **this path ---> "drive//MyDrive//Tumor//config2.yaml"   contain the training data for each image and its label**
 """
 
-from ultralytics import YOLO
 model = YOLO("yolov8n-seg.yaml")
 results = model.train(model="yolov8n-seg.yaml", data="drive//MyDrive//Tumor//config2.yaml", imgsz=1024 ,
                       optimizer="SGD" , epochs=40 ,batch=5, lr0=0.008 , lrf=0.1)
