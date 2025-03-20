@@ -2,7 +2,7 @@
 # Project Describtion
 this project shows how to use Computer Vision in medical application. (You Only Look Once) algorithm version 8 introduce a Segmentation layer which is added after detecting the the bounding box to achieve ability for generating segmentation masks precised on the on the object being deteced
 
-I implemented (You Only Look Once) algorithm version 8 *From Scratch* according to it's research paper using PyTorch 
+I implemented (You Only Look Once) algorithm version 8 **from scratch** according to it's research paper using PyTorch 
 
 Code details in the colab notebook above "how to train Segmentation model on cancer tumor dataset.ipynb"
 
