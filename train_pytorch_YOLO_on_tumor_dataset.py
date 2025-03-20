@@ -21,7 +21,6 @@ from torch.nn.functional import cross_entropy, one_hot
 
 import random
 import time
-from ultralytics import YOLO
 import numpy
 
 
